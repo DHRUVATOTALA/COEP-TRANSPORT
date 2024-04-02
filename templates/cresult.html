@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carpool</title>
+    <link rel="stylesheet" href="{{url_for('static', filename= 'cresult.css')}}">
+</head>
+<body>
+    <div class="header"> 
+
+        <header class="header-content"> 
+            <a href="#logo" class="logo">
+                <img src="https://img.collegepravesh.com/2016/01/COEP-Tech-Pune-Logo.png" alt="COEP Emblem" class="logo-icon" width="100" height="100">
+                <span class="logo-text">COEP Transport</span>
+            </a>    
+
+            <nav class="nav">
+                <a href="/index" class="nav-link">Home</a>
+                <a href="/aboutus" class="nav-link">About Us</a>
+                <a href="/contact" class="nav-link">Contact Us</a>
+            </nav>
+        </header>
+        <main>
+            <div class="toptext">
+                AVAILABLE RIDES
+            </div>
+            <div class="content">
+                {% if f==-1 %}
+                <div>
+                    NO PEOPLE FOUND
+                </div>
+                {% endif %}
+                {% for d in data1 %}
+                <div class="CARD">
+                    <div class="top">
+                        FROM {{area}} to COEP 
+                    </div>
+                    <div class="title1" style="border-top-left-radius:20px ; border-top-right-radius: 20px;">
+                        NAME
+                    </div>
+                    <div class="data">
+                        {{d[0]}}
+                    </div>
+                    <div class="title1" style="border-top:1px solid black ;">
+                        CONTACT
+                    </div>
+                    <div class="data" style="border-bottom-left-radius:20px ; border-bottom-right-radius: 20px;">
+                        {{d[1]}}
+                    </div>
+                </div>
+                {% endfor %}
+                {% for d in data2 %}
+                <div class="CARD">
+                    <div class="top">
+                        FROM COEP TO {{area}}
+                    </div>
+                    <div class="title1" style="border-top-left-radius:20px ; border-top-right-radius: 20px;">
+                        NAME
+                    </div>
+                    <div class="data">
+                        {{d[0]}}
+                    </div>
+                    <div class="title1" style="border-top:1px solid black ;">
+                        CONTACT
+                    </div>
+                    <div class="data" style="border-bottom-left-radius:20px ; border-bottom-right-radius: 20px;">
+                        {{d[1]}}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+        </main>
+    </div>
+</body>
+</html>

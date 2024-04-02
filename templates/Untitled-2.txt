@@ -1,0 +1,5 @@
+-- database: c:\New folder\web\MAINPAGE\database.db
+
+-- Use the ▷ button in the top right corner to run the entire file.
+
+SELECT * FROM area;

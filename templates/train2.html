@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} Metro {% endblock %}</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='styletrain.css')}}">
+</head>
+<body>
+    <div class="body">
+        <div class="searchbox">
+            <div id="title">
+                <h1>
+                    Find Metro
+                </h1>
+            </div>
+            <div class="custom-select">
+                <form action="/resulttrain" class="form" method="POST">
+                        <!-- select for timing -->
+                        <label for="TIMING"><h4>Select Time of Arrival at COEP:</h4></label>
+                        <select name="t" data-live-search="true">  
+                            {% for i in range %}
+                            <option value="{{i[0]}}" name="{{i}}">{{i[0]}}</option>
+                            {% endfor %}
+                        </select>
+                        <label for="TIMING2"><h4>Select Departure Time from COEP:</h4></label>
+                        <select name="t2" data-live-search="true">
+                            {% for i in range1 %}
+                            <option value="{{i[0]}}" name="{{i}}">{{i[0]}}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit" >
+                            SUBMIT
+                        </button>
+                </form>
+            </div>
+        </div>
+        <div class="routeimg">
+            <img id="route" src="https://www.metrorailnews.in/wp-content/uploads/2022/03/Pune-Metro-Route-25.jpg" alt="route">
+        </div>
+    </div>
+    <footer class="footer">
+        &copy; For COEP, By COEP.
+    </footer>
+</body>
+</html>

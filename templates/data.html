@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Successful Submission</title>
+    <link rel="stylesheet" href="{{url_for('static', filename= 'carpool1.css')}}">
+    <style>
+        /* Add your custom styling here */
+        .styled-table {
+            border-collapse: collapse;
+            margin-left: auto;
+            margin-right: auto;
+            width: 70%;
+            height: 70%;
+            border: 2px solid #ddd; 
+            background-color: rgba(255, 255, 255, 0.2);
+            font-size: x-large;
+            font-weight: bold;
+        }
+        .styled-table th, 
+        .styled-table td {
+            border: 1px solid #ddd; 
+            padding: 8px;
+            text-align: left;
+        }
+        .styled-table th {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #333;
+        }
+        .styled-table tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        .styled-table tr:hover {
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="header"> 
+
+        <header class="header-content"> 
+            <a href="#logo" class="logo">
+                <img src="https://img.collegepravesh.com/2016/01/COEP-Tech-Pune-Logo.png" alt="COEP Emblem" class="logo-icon" width="100" height="100">
+                <span class="logo-text">COEP Transport</span>
+            </a>    
+
+            <nav class="nav">
+                <a href="/index" class="nav-link">Home</a>
+                <a href="/aboutus" class="nav-link">About Us</a>
+                <a href="/contact" class="nav-link">Contact Us</a>
+            </nav>
+        </header>
+    </div>
+    <div class="declare">
+        Data Added Successfully!
+    </div>
+    <table class="styled-table">
+        <tbody>
+            <tr>
+                <td>Name :{{info[0]}} </td>
+            </tr>
+            <tr>
+                <td>Area : {{info[3]}}</td>
+            </tr>
+            <tr>
+                <td>Arrival Time :{{info[1]}}</td>
+            </tr>
+            <tr>
+                <td>Depart Time :{{info[2]}}</td>
+            </tr>
+            <tr>
+                <td>Phone Number :{{info[4]}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <footer class="footer">
+        &copy; For COEP, By COEP.
+    </footer>
+</body>
+</html>

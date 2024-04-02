@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metro</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='trainn.css')}}">
+    <style>
+        /* Add your custom styling here */
+        .styled-table {
+            border-collapse: collapse;
+            width: 70%;
+            height: 70%;
+            border: 2px solid #ddd; 
+            background-color: rgba(255, 255, 255, 0.2);
+            font-size: xx-large;
+            font-weight: bold;
+        }
+        .styled-table th, 
+        .styled-table td {
+            border: 1px solid #ddd; 
+            padding: 8px;
+            text-align: left;
+        }
+        .styled-table th {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #333;
+        }
+        .styled-table tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        .styled-table tr:hover {
+            background-color: black;
+        }
+    </style>
+</head>
+
+<body class="body">
+    
+    <table class="styled-table">
+        <tbody>
+            <tr>
+                <td>From : {{ station }} </td>
+            </tr>
+            <tr>
+                <td>Destination : COEP (Shivaji Nagar Station)</td>
+            </tr>
+            <tr>
+                <td>Timing : {{ timing }}</td>
+            </tr>
+            <tr>
+                <td>Line : {{ line[0][0] }} </td>
+            </tr>
+            <tr>
+                <td>Fare : {{ fare }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="styled-table">
+        <tbody>
+            <tr>
+                <td>From : COEP (Shivaji Nagar Station)</td>
+            </tr>
+            <tr>
+                <td>Destination : {{ station }} </td>
+            </tr>
+            <tr>
+                <td>Timing : {{ timing1 }}</td>
+            </tr>
+            <tr>
+                <td>Line : {{ line1 }}</td>
+            </tr>
+            <tr>
+                <td>Fare : {{ fare1 }}</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
