@@ -187,10 +187,10 @@ def cresult():
     if t1==[] and t2==[]:
         return render_template('cresult.html',f=-1)
     data1=[]
-    c.execute("SELECT name,contact FROM cpool WHERE area=(?) AND t1=(?)",(area,arrival,))
+    c.execute("SELECT name,MIS NO FROM cpool WHERE area=(?) AND t1=(?)",(area,arrival,))
     data1=c.fetchall()
     print(data1)
-    c.execute("SELECT name,contact FROM cpool WHERE area=(?) AND t2=(?)",(area,depart,))
+    c.execute("SELECT name,MIS NO FROM cpool WHERE area=(?) AND t2=(?)",(area,depart,))
     data2=c.fetchall()
     print(data2)
     conn.close()
