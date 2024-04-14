@@ -1,6 +1,12 @@
 from flask import Flask,render_template,request
 import sqlite3
 
+class bus:
+    all=[]
+    def __init__(self):
+        all.append(self)
+
+
 app=Flask(__name__)
 #return the home page
 @app.route('/')
@@ -44,31 +50,51 @@ def getval():
 #result page
 @app.route('/result',methods=['POST'])
 def result():
+    class bus:
+        d1=[]
+        d2=[]
+        def __init__(self,f=0) -> None:
+            if f==1:
+                bus.d1.append(self)
+            else:
+                bus.d2.append(self)
+            
+        pass
     stop=request.form['selected2']
     t=request.form['selected3']
     tl=request.form['selected4']
+    print(t)
+    print(tl)
     tmin=t[0:2]
     tmax=t[-7:-5]
     tlmin=tl[0:2]
     tlmax=tl[-7:-5]
-    t1="07"
-    print(tmin<t1)
-    if(tmin<t1):
+
+    t1=t[-10:-8]
+    print(t1=="pm")
+    if(t1=="pm" and tmin!="12"):
         m=int(tmin)
         m+=12
         tmin=str(m)
-    if(tmax<t1):
+    t1=t[-2:]
+    print(t1=="pm")
+    if(t1=="pm" and tmax!="12"):
         m=int(tmax)
         m+=12
         tmax=str(m)
-    if(tlmin<t1):
+    t1=tl[-10:-8]
+    print(t1=="pm")
+    if(t1=="pm" and tlmin!="12"):
         m=int(tlmin)
         m+=12
         tlmin=str(m)
-    if(tlmax<t1):
+    t1=tl[-2:]
+    print(t1=="pm")
+    if(t1=="pm" and tlmax!="12"):
         m=int(tlmax)
         m+=12
         tlmax=str(m)
+    print(tlmax," ",tlmin)
     conn=sqlite3.connect('database.db')
     c=conn.cursor()
     c.execute("SELECT sid FROM area WHERE Stop=(?)",(stop,))
@@ -101,11 +127,13 @@ def result():
             t=i[0][8*j:8*j+7]
             j+=1
             s=t[0:2]
-            t1="07"
-            if(s<t1):
+            # print(t)
+            t1=t[-2:]
+            if(t1=="pm" and s!="12"):
                 m=int(s)
                 m+=12
                 s=str(m)
+            print(s)
             if (s<tmax and s>=tmin) or t==tmax+":00am" or t==tmax+":00pm":
                 f1=1
                 if t not in col:
@@ -129,31 +157,34 @@ def result():
             c2+=1
             arr2.append(col1)
             
-    print(arr2,c2,bidd1,bnam1)
+    print(arr,c2,bidd1,bnam1)
     t=arr
     data1=[]
     print(bnam1,bidd1)
     if(f1>0):
         for i in range(c1):
-            col=[]
-            col.append(bnam[i][0])
-            col.append(bidd[i][0])
-            col.append(t[i])
-            data1.append(col)
+            val=bus(1)
+            val.name=bnam[i][0]
+            val.id=bidd[i][0]
+            val.time=t[i]
     else:
-        data1=[["NO BUSES"],["NO BUSES"],["NO BUSES"]]
-    data2=[]
+        val=bus(1)
+        bus.name="NO BUSES"
+        bus.id="NO BUSES"
+        bus.time=''
     if(f2>0):
         for i in range(c2):
-            col=[]
-            col.append(bnam1[i][0])
-            col.append(bidd1[i][0])
-            col.append(arr2[i])
-            data2.append(col)
+            val=bus()
+            val.name=bnam1[i][0]
+            val.id=bidd1[i][0]
+            val.time=arr2[i]
     else:
-        data2=[["NO BUSES"],["NO BUSES"],["NO BUSES"]]
+        val=bus()
+        bus.name="NO BUSES"
+        bus.id="NO BUSES"
+        bus.time=''
 
-    return render_template('result.html',data1=data1,data2=data2,stop=stop)
+    return render_template('result.html',data1=bus,stop=stop)
 @app.route('/cpool')
 def cpool():
     time_ranges = [
@@ -171,9 +202,20 @@ def cpool():
     return render_template('carpool.html',time=time_ranges)
 @app.route('/cresult',methods=['POST'])
 def cresult():
+    class car:
+        d1=[]
+        d2=[]
+        area=''
+        def __init__(self,f=0) -> None:
+            if(f==1):
+                car.d1.append(self)
+            else:
+                car.d2.append(self)
     area=request.form['area']
     arrival=request.form['arrive']
     depart=request.form['depart']
+    name=request.form['name']
+    car.area=area
     area=area.upper()
     conn=sqlite3.connect('database.db')
     c=conn.cursor()
@@ -187,15 +229,26 @@ def cresult():
     if t1==[] and t2==[]:
         return render_template('cresult.html',f=-1)
     data1=[]
-    c.execute("SELECT name,MIS NO FROM cpool WHERE area=(?) AND t1=(?)",(area,arrival,))
+    c.execute("SELECT name,MIS NO,email FROM cpool WHERE area=(?) AND t1=(?)",(area,arrival,))
     data1=c.fetchall()
+    for i in data1:
+        ride=car(1)
+        ride.name=i[0]
+        ride.mis=i[1]
+        ride.mail=i[2]
     print(data1)
-    c.execute("SELECT name,MIS NO FROM cpool WHERE area=(?) AND t2=(?)",(area,depart,))
+    c.execute("SELECT name,MIS NO,email FROM cpool WHERE area=(?) AND t2=(?)",(area,depart,))
     data2=c.fetchall()
+    for i in data2:
+        ride=car(0)
+        ride.name=i[0]
+        ride.mis=i[1]
+        ride.mail=i[2]
+        print(ride.mail)
     print(data2)
     conn.close()
 
-    return render_template('cresult.html',data1=data1,data2=data2,area=area)
+    return render_template('cresult.html',data=car,name=name)
 @app.route('/cresult1',methods=['POST'])
 def adddata():
     info=[]
@@ -204,6 +257,7 @@ def adddata():
     arrival=request.form['t1']
     depart=request.form['t2']
     phno=request.form['phno']
+    email=request.form['mail']
     area=area.upper()
     name=name.upper()
     phno=int(phno)
@@ -212,13 +266,14 @@ def adddata():
     info.append(depart)
     info.append(area)
     info.append(phno)
+    info.append(email)
     info=tuple(info)
     conn=sqlite3.connect('database.db')
     c=conn.cursor()
     c.execute("SELECT * FROM cpool")
     data=c.fetchall()
     if info not in data:
-        c.execute("INSERT INTO cpool(name,area,t1,t2,contact) VALUES(?,?,?,?,?)",(name,area,arrival,depart,phno,))
+        c.execute("INSERT INTO cpool(name,area,t1,t2,mis,email) VALUES(?,?,?,?,?,?)",(name,area,arrival,depart,phno,email,))
         conn.commit()
     conn.close()
     return render_template('data.html',info=info)
@@ -252,9 +307,18 @@ def getval1():
 
 @app.route('/resulttrain', methods=['POST'])
 def result1():
+    class train:
+        d1=[]
+        d2=[]
+        station=''
+        def __init__(self,f=0) -> None:
+            if f==1:
+                train.d1.append(self)
+            else:
+                train.d2.append(self)
     range = request.form['t']
     range1 = request.form['t2']
-
+    way1=train(1)
     conn = sqlite3.connect('db1.db')
     c = conn.cursor()
     print(range)
@@ -263,10 +327,13 @@ def result1():
     print(id)
     c.execute("SELECT line FROM table2 WHERE metro_id=?", (id[0][0],))
     line = c.fetchall()
+    way1.line=line
     c.execute("SELECT station FROM metro WHERE id=?", (id[0][0],))
     station = c.fetchall()
+    way1.station=station[0][0]
     c.execute("SELECT DISTINCT fare FROM table2 WHERE metro_id=?", (id[0][0],))
     fare = c.fetchone()
+    way1.fare=fare[0]
 
 #edit
     c.execute("SELECT DISTINCT id FROM table2 WHERE range=?", (range,))
@@ -275,8 +342,10 @@ def result1():
 #edit end
     c.execute("SELECT DISTINCT timing FROM table2 WHERE id=?", (idd[0][0],))
     timing = c.fetchone()
+    way1.time=timing[0]
 
 #for departure
+    way2=train()
     c.execute("SELECT metro_id1 FROM table3 WHERE range1!=?", (range1,))
     id1=c.fetchall()
     print(id1)
@@ -285,14 +354,17 @@ def result1():
     print(selected_station1)    
     c.execute("SELECT DISTINCT line1 FROM table3 WHERE metro_id1=?", (id1[0][0],))
     line1 = c.fetchall()
+    way2.line=line1[0][0]
     c.execute("SELECT DISTINCT fare1 FROM table3 WHERE metro_id1=?", (id1[0][0],))
     fare1 = c.fetchall()
+    way2.fare=fare1[0][0]
     c.execute("SELECT DISTINCT id1 FROM table3 WHERE range1=?", (range1,))
     id2=c.fetchall()    
     c.execute("SELECT timing1 FROM table3 WHERE id1=?", (id2[0][0],))
     timing1=c.fetchall()
-
-    return render_template('trainresult.html',  station= station[0][0], line = line, timing = timing[0], fare = fare[0], line1=line1[0][0],fare1=fare1[0][0], timing1=timing1[0][0])
+    way2.time=timing1[0]
+    train.station=station[0][0]
+    return render_template('trainresult.html',train=train)
 
 if __name__=='__main__':
     app.run(debug=True)

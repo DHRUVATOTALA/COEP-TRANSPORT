@@ -40,19 +40,19 @@
     <table class="styled-table">
         <tbody>
             <tr>
-                <td>From : {{ station }} </td>
+                <td>From : {{ train.station }} </td>
             </tr>
             <tr>
                 <td>Destination : COEP (Shivaji Nagar Station)</td>
             </tr>
             <tr>
-                <td>Timing : {{ timing }}</td>
+                <td>Timing : {{ train.d1[0].time }}</td>
             </tr>
             <tr>
-                <td>Line : {{ line[0][0] }} </td>
+                <td>Line : {{ train.d1[0].line[0][0] }} </td>
             </tr>
             <tr>
-                <td>Fare : {{ fare }}</td>
+                <td>Fare : {{ train.d1[0].fare }}</td>
             </tr>
         </tbody>
     </table>
@@ -62,16 +62,16 @@
                 <td>From : COEP (Shivaji Nagar Station)</td>
             </tr>
             <tr>
-                <td>Destination : {{ station }} </td>
+                <td>Destination : {{ train.station }} </td>
             </tr>
             <tr>
-                <td>Timing : {{ timing1 }}</td>
+                <td>Timing : {{ train.d2[0].time }}</td>
             </tr>
             <tr>
-                <td>Line : {{ line1 }}</td>
+                <td>Line : {{ train.d2[0].line }}</td>
             </tr>
             <tr>
-                <td>Fare : {{ fare1 }}</td>
+                <td>Fare : {{ train.d2[0].fare }}</td>
             </tr>
         </tbody>
     </table>

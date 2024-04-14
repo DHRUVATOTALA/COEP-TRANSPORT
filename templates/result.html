@@ -31,11 +31,11 @@
                 <th>
                     TIME
                 </th>
-                {% for b in data1 %}
+                {% for b in data1.d1 %}
                 <tr >
-                    <td>{{b[0]}}</td>
-                    <td>{{b[1]}}</td>
-                    <td>{% for b1 in b[2] %}
+                    <td>{{b.name}}</td>
+                    <td>{{b.id}}</td>
+                    <td>{% for b1 in b.time %}
                         {{b1}},
                         {% endfor %}
                     </td>
@@ -56,11 +56,11 @@
                 <th>
                     TIME
                 </th>
-                {% for b in data2 %}
+                {% for b in data1.d2 %}
                 <tr >
-                    <td>{{b[0]}}</td>
-                    <td>{{b[1]}}</td>
-                    <td>{% for b1 in b[2] %}
+                    <td>{{b.name}}</td>
+                    <td>{{b.id}}</td>
+                    <td>{% for b1 in b.time %}
                         {{b1}},
                         {% endfor %}
                     </td>

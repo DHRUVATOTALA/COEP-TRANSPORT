@@ -16,12 +16,13 @@
             </a>    
 
             <nav class="nav">
-                <a href="/index" class="nav-link">Home</a>
+                <a href="/home" class="nav-link">Home</a>
                 <a href="/aboutus" class="nav-link">About Us</a>
                 <a href="/contact" class="nav-link">Contact Us</a>
             </nav>
         </header>
         <main>
+            (Click on names to draft an auto generated email)
             <div class="toptext">
                 AVAILABLE RIDES
             </div>
@@ -31,41 +32,41 @@
                     NO PEOPLE FOUND
                 </div>
                 {% endif %}
-                {% for d in data1 %}
+                {% for d in data.d1 %}
                 <div class="CARD">
                     <div class="top">
-                        FROM {{area}} to COEP 
+                        FROM {{data.area}} to COEP 
                     </div>
                     <div class="title1" style="border-top-left-radius:20px ; border-top-right-radius: 20px;">
                         NAME
                     </div>
                     <div class="data">
-                        {{d[0]}}
-                    </div>
-                    <div class="title1" style="border-top:1px solid black ;">
-                        CONTACT
-                    </div>
-                    <div class="data" style="border-bottom-left-radius:20px ; border-bottom-right-radius: 20px;">
-                        {{d[1]}}
-                    </div>
-                </div>
-                {% endfor %}
-                {% for d in data2 %}
-                <div class="CARD">
-                    <div class="top">
-                        FROM COEP TO {{area}}
-                    </div>
-                    <div class="title1" style="border-top-left-radius:20px ; border-top-right-radius: 20px;">
-                        NAME
-                    </div>
-                    <div class="data">
-                        {{d[0]}}
+                        <a href="mailto:{{d.mail}}? cc=skywalker@starwars.com& bcc=leia@starwars.com& subject=May%20the%20Force%20be%20with%20you&body=Hi! I am {{name}} travelling from {{data.area}} to COEP and back. I found you on COEP Transport Carpool, can I accompany you?" style="color: white">{{d.name}}</a> 
                     </div>
                     <div class="title1" style="border-top:1px solid black ;">
                         MIS NO
                     </div>
                     <div class="data" style="border-bottom-left-radius:20px ; border-bottom-right-radius: 20px;">
-                        {{d[1]}}
+                        {{d.mis}}
+                    </div>
+                </div>
+                {% endfor %}
+                {% for d in data.d2 %}
+                <div class="CARD">
+                    <div class="top">
+                        FROM COEP TO {{data.area}}
+                    </div>
+                    <div class="title1" style="border-top-left-radius:20px ; border-top-right-radius: 20px;">
+                        NAME
+                    </div>
+                    <div class="data">
+                        <a href="mailto:{{d.mail}}? cc=skywalker@starwars.com& bcc=leia@starwars.com& subject=May%20the%20Force%20be%20with%20you&body=Hi! I am {{name}} travelling from {{data.area}} to COEP and back. I found you on COEP Transport Carpool, can I accompany you?" style="color: white">{{d.name}}</a> 
+                    </div>
+                    <div class="title1" style="border-top:1px solid black ;">
+                        MIS NO
+                    </div>
+                    <div class="data" style="border-bottom-left-radius:20px ; border-bottom-right-radius: 20px;">
+                        {{d.mis}}
                     </div>
                 </div>
                 {% endfor %}
