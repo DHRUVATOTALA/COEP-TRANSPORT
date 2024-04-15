@@ -7,6 +7,18 @@
     <link rel="stylesheet" href="{{url_for('static', filename='trainn.css')}}">
     <style>
         /* Add your custom styling here */
+        body{
+            display: flex;
+            flex-direction: column;
+        }
+        .Tableb{
+            display: flex;
+            width: 100vw;
+            height: 80vh;
+        }
+        a{
+            color: white;
+        }
         .styled-table {
             border-collapse: collapse;
             width: 70%;
@@ -15,6 +27,14 @@
             background-color: rgba(255, 255, 255, 0.2);
             font-size: xx-large;
             font-weight: bold;
+        }
+        .nav{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 20vh;
+            width: 100vw;
+            color: white;
         }
         .styled-table th, 
         .styled-table td {
@@ -36,7 +56,12 @@
 </head>
 
 <body class="body">
-    
+    <nav class="nav">
+        <a href="/home" class="nav-link">Home</a>
+        <a href="/aboutus" class="nav-link">About Us</a>
+        <a href="/contact" class="nav-link">Contact Us</a>
+    </nav>
+    <div class="Tableb">
     <table class="styled-table">
         <tbody>
             <tr>
@@ -75,5 +100,6 @@
             </tr>
         </tbody>
     </table>
+    </div>
 </body>
 </html>

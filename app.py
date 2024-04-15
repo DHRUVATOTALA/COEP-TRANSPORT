@@ -227,7 +227,7 @@ def cresult():
     print(t1)
     print(t2)
     if t1==[] and t2==[]:
-        return render_template('cresult.html',f=-1)
+        return render_template('cresult.html',f=-1,data=car,name=name)
     data1=[]
     c.execute("SELECT name,MIS NO,email FROM cpool WHERE area=(?) AND t1=(?)",(area,arrival,))
     data1=c.fetchall()
